@@ -7,3 +7,4 @@ export {
   ArraySymbol,
 } from "./Validator.ts";
 export * from "./validators/string.ts";
+export * from "./validators/number.ts";

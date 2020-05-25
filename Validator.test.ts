@@ -7,6 +7,8 @@ import {
   Validatable,
   ArraySymbol,
   isString,
+  isNumber,
+  isInteger,
 } from "./mod.ts";
 
 Deno.test("validate schema (match)", async () => {
@@ -14,7 +16,7 @@ Deno.test("validate schema (match)", async () => {
     ["string", isString],
     ["string", [isString]],
     [["arr", "ay"], { [ArraySymbol]: isString }],
-    [{ foo: "bar", lorem: "ipsum" }, { foo: isString, lorem: [isString] }],
+    [{ foo: 3.1415, lorem: "ipsum" }, { foo: isNumber, lorem: [isString] }],
   ];
   for (const [value, constraints] of values) {
     assertEquals([], await validate(value, constraints));
@@ -26,7 +28,7 @@ Deno.test("validate schema (no match)", async () => {
     [6, isString],
     [false, [isString]],
     [["arr", ["ay"]], { [ArraySymbol]: isString }],
-    [{ foo: {}, lorem: "ipsum" }, { foo: isString, lorem: [isString] }],
+    [{ foo: 3.1415, lorem: "ipsum" }, { foo: isInteger, lorem: [isString] }],
   ];
   for (const [value, constraints] of values) {
     assertNotEquals([], await validate(value, constraints));
