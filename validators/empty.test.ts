@@ -22,7 +22,7 @@ Deno.test("isRequired (match)", async () => {
     Symbol("foo"),
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isRequired), []);
+    assertEquals(await validate(value, isRequired()), []);
   }
 });
 
@@ -32,7 +32,7 @@ Deno.test("isRequired (no match)", async () => {
     null,
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isRequired), []);
+    assertNotEquals(await validate(value, isRequired()), []);
   }
 });
 
@@ -54,7 +54,7 @@ Deno.test("isDefined (match)", async () => {
     Symbol("foo"),
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isDefined), []);
+    assertEquals(await validate(value, isDefined()), []);
   }
 });
 
@@ -63,7 +63,7 @@ Deno.test("isDefined (no match)", async () => {
     undefined,
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isDefined), []);
+    assertNotEquals(await validate(value, isDefined()), []);
   }
 });
 
@@ -80,7 +80,7 @@ Deno.test("isNotEmpty (match)", async () => {
     Symbol("foo"),
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isNotEmpty), []);
+    assertEquals(await validate(value, isNotEmpty()), []);
   }
 });
 
@@ -94,6 +94,6 @@ Deno.test("isNotEmpty (no match)", async () => {
     [],
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isNotEmpty), []);
+    assertNotEquals(await validate(value, isNotEmpty()), []);
   }
 });

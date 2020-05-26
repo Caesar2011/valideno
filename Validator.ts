@@ -2,6 +2,7 @@ export type Args = { [_: string]: any };
 
 export interface Validator {
   type: string;
+  extends?: Validator[];
   check: (value: any) => Promise<Args | undefined> | Args | undefined;
   message: (
     value: any,
@@ -54,6 +55,13 @@ async function validateValue(
   }
   const result: ValidationError[] = [];
   for (const validator of validators) {
+    if (validator.extends) {
+      const prerequisites = await validate(value, validator.extends);
+      if (prerequisites.length > 0) {
+        result.push(...prerequisites);
+        continue;
+      }
+    }
     const args = await validator.check(value);
     if (args !== undefined) {
       const message = await validator.message(value, args);

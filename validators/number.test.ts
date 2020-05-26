@@ -17,7 +17,7 @@ Deno.test("isNumber (match)", async () => {
     Math.PI,
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isNumber), []);
+    assertEquals(await validate(value, isNumber()), []);
   }
 });
 
@@ -33,7 +33,7 @@ Deno.test("isNumber (no match)", async () => {
     Symbol(),
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isNumber), []);
+    assertNotEquals(await validate(value, isNumber()), []);
   }
 });
 
@@ -47,7 +47,7 @@ Deno.test("isInteger (match)", async () => {
     -1,
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isInteger), []);
+    assertEquals(await validate(value, isInteger()), []);
   }
 });
 
@@ -64,6 +64,6 @@ Deno.test("isInteger (no match)", async () => {
     0.1,
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isInteger), []);
+    assertNotEquals(await validate(value, isInteger()), []);
   }
 });

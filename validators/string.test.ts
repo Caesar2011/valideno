@@ -1,4 +1,4 @@
-import { isString } from "./string.ts";
+import { isString, isURL } from "./string.ts";
 import { validate } from "../mod.ts";
 import {
   assertEquals,
@@ -15,7 +15,7 @@ Deno.test("isString (match)", async () => {
     new String("bar"),
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isString), []);
+    assertEquals(await validate(value, isString()), []);
   }
 });
 
@@ -31,6 +31,24 @@ Deno.test("isString (no match)", async () => {
     Symbol(),
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isString), []);
+    assertNotEquals(await validate(value, isString()), []);
+  }
+});
+
+Deno.test("isURL (match)", async () => {
+  const values = [
+    "http://google.com",
+  ];
+  for (const value of values) {
+    assertEquals(await validate(value, isURL()), []);
+  }
+});
+
+Deno.test("isURL (no match)", async () => {
+  const values = [
+    "invalid",
+  ];
+  for (const value of values) {
+    assertNotEquals(await validate(value, isURL()), []);
   }
 });

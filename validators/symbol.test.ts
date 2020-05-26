@@ -12,7 +12,7 @@ Deno.test("isSymbol (match)", async () => {
     Symbol(),
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isSymbol), []);
+    assertEquals(await validate(value, isSymbol()), []);
   }
 });
 
@@ -31,6 +31,6 @@ Deno.test("isSymbol (no match)", async () => {
     new Object(),
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isSymbol), []);
+    assertNotEquals(await validate(value, isSymbol()), []);
   }
 });

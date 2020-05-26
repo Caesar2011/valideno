@@ -13,7 +13,7 @@ Deno.test("isBoolean (match)", async () => {
     false,
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isBoolean), []);
+    assertEquals(await validate(value, isBoolean()), []);
   }
 });
 
@@ -31,6 +31,6 @@ Deno.test("isBoolean (no match)", async () => {
     Symbol(),
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isBoolean), []);
+    assertNotEquals(await validate(value, isBoolean()), []);
   }
 });
