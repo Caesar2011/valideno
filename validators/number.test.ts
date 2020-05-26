@@ -7,6 +7,8 @@ import {
 
 Deno.test("isNumber (match)", async () => {
   const values = [
+    undefined,
+    null,
     0,
     1,
     2e64,
@@ -21,8 +23,6 @@ Deno.test("isNumber (match)", async () => {
 
 Deno.test("isNumber (no match)", async () => {
   const values = [
-    undefined,
-    null,
     NaN,
     "0",
     true,
@@ -39,6 +39,8 @@ Deno.test("isNumber (no match)", async () => {
 
 Deno.test("isInteger (match)", async () => {
   const values = [
+    undefined,
+    null,
     0,
     1,
     2e64,
@@ -51,8 +53,6 @@ Deno.test("isInteger (match)", async () => {
 
 Deno.test("isInteger (no match)", async () => {
   const values = [
-    undefined,
-    null,
     NaN,
     "0",
     true,

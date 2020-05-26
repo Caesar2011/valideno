@@ -7,6 +7,8 @@ import {
 
 Deno.test("isString (match)", async () => {
   const values = [
+    undefined,
+    null,
     "",
     "foo",
     new String(),
@@ -19,8 +21,6 @@ Deno.test("isString (match)", async () => {
 
 Deno.test("isString (no match)", async () => {
   const values = [
-    undefined,
-    null,
     0,
     1,
     true,
