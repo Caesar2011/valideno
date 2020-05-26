@@ -99,17 +99,8 @@ async function validateSchema(
     if (!validators.hasOwnProperty(prop)) {
       continue;
     }
-    if (value.hasOwnProperty(prop)) {
-      const errors = await validate(value[prop], v[prop]);
-      valErrors.push(...(errors ?? []));
-    } else {
-      valErrors.push({
-        type: "property",
-        param: [prop],
-        message: `Property '${prop}' expected but not found!`,
-        args: { property: prop },
-      });
-    }
+    const errors = await validate(value && value[prop], v[prop]);
+    valErrors.push(...(errors ?? []));
   }
   return valErrors;
 }

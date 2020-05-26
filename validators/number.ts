@@ -9,7 +9,7 @@ export const isNumber: Validator = {
     }
   },
   message: (value: any, args?: Args) => {
-    return `The value '${value && value.toString()}' has to be a number.`;
+    return `This value has to be a number.`;
   },
 };
 
@@ -22,6 +22,6 @@ export const isInteger: Validator = {
     }
   },
   message: (value: any, args?: Args) => {
-    return `The value '${value && value.toString()}' has to be an integer.`;
+    return `This value has to be an integer.`;
   },
 };
