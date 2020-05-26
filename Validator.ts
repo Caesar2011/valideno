@@ -26,7 +26,7 @@ export type Schema = { [key: string]: Validatable } | {
 export async function validate(
   value: any,
   validators: Validatable,
-): Promise<ValidationError[] | undefined> {
+): Promise<ValidationError[]> {
   if (instanceofValidatorArray(validators) || instanceofValidator(validators)) {
     return validateValue(value, validators);
   } else {
