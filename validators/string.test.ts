@@ -38,17 +38,27 @@ Deno.test("isString (no match)", async () => {
 Deno.test("isURL (match)", async () => {
   const values = [
     "http://google.com",
+    "http://10.1.1.1",
+    "http://10.1.1.254",
+    "http://223.255.255.254",
+    " data:,Hello World!"
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isURL()), []);
+    assertEquals(await validate(value, isURL({allowLocal: true, allowDataUrl: true})), [], value);
   }
 });
 
 Deno.test("isURL (no match)", async () => {
   const values = [
     "invalid",
+    "http://0.0.0.0",
+    "http://10.1.1.0",
+    "http://10.1.1.255",
+    "http://224.1.1.1",
+    "http://1.1.1.1.1",
+    " data:,Hello World!"
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isURL()), []);
+    assertNotEquals(await validate(value, isURL({allowLocal: true})), [], value);
   }
 });
