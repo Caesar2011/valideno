@@ -19,6 +19,7 @@ Deno.test("isNumber (match)", async () => {
   for (const value of values) {
     assertEquals(await validate(value, isNumber()), []);
   }
+  assertEquals(await validate(NaN, isNumber({ allowNaN: true })), []);
 });
 
 Deno.test("isNumber (no match)", async () => {
@@ -35,6 +36,7 @@ Deno.test("isNumber (no match)", async () => {
   for (const value of values) {
     assertNotEquals(await validate(value, isNumber()), []);
   }
+  assertNotEquals(await validate(NaN, isNumber({ allowNaN: false })), []);
 });
 
 Deno.test("isInteger (match)", async () => {
@@ -49,6 +51,7 @@ Deno.test("isInteger (match)", async () => {
   for (const value of values) {
     assertEquals(await validate(value, isInteger()), []);
   }
+  assertEquals(await validate(NaN, isInteger({ allowNaN: true })), []);
 });
 
 Deno.test("isInteger (no match)", async () => {
@@ -66,4 +69,5 @@ Deno.test("isInteger (no match)", async () => {
   for (const value of values) {
     assertNotEquals(await validate(value, isInteger()), []);
   }
+  assertNotEquals(await validate(NaN, isInteger({ allowNaN: false })), []);
 });

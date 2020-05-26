@@ -1,10 +1,13 @@
 import { Validator, Args } from "../mod.ts";
 
-export function isNumber(): Validator {
+export function isNumber(
+  { allowNaN = false }: { allowNaN?: boolean } = {},
+): Validator {
   return {
     type: "isNumber",
     check: (value: any) => {
       if (value === null || value === undefined) return;
+      if (allowNaN && Number.isNaN(value)) return;
       if (!Number.isFinite(value)) {
         return {};
       }
@@ -15,11 +18,14 @@ export function isNumber(): Validator {
   };
 }
 
-export function isInteger(): Validator {
+export function isInteger(
+  { allowNaN = false }: { allowNaN?: boolean } = {},
+): Validator {
   return {
     type: "isInteger",
     check: (value: any) => {
       if (value === null || value === undefined) return;
+      if (allowNaN && Number.isNaN(value)) return;
       if (!Number.isInteger(value)) {
         return {};
       }
