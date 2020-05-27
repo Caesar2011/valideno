@@ -80,7 +80,7 @@ Deno.test("isNotEmpty (match)", async () => {
     Symbol("foo"),
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isNotEmpty()), []);
+    assertEquals(await validate(value, isNotEmpty()), [], String(value));
   }
 });
 
@@ -94,6 +94,6 @@ Deno.test("isNotEmpty (no match)", async () => {
     [],
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isNotEmpty()), []);
+    assertNotEquals(await validate(value, isNotEmpty()), [], String(value));
   }
 });

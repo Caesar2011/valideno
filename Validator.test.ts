@@ -52,7 +52,7 @@ Deno.test("validate schema (match)", async () => {
     ],
   ];
   for (const [value, constraints] of values) {
-    assertEquals([], await validate(value, constraints));
+    assertEquals(await validate(value, constraints), [], String(value));
   }
 });
 
@@ -92,6 +92,6 @@ Deno.test("validate schema (no match)", async () => {
     ],
   ];
   for (const [value, constraints] of values) {
-    assertNotEquals([], await validate(value, constraints));
+    assertNotEquals(await validate(value, constraints), [], String(value));
   }
 });

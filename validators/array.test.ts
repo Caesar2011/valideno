@@ -13,7 +13,7 @@ Deno.test("isArray (match)", async () => {
     ["foo"],
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isArray()), []);
+    assertEquals(await validate(value, isArray()), [], String(value));
   }
 });
 
@@ -33,6 +33,6 @@ Deno.test("isArray (no match)", async () => {
     Symbol(),
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isArray()), []);
+    assertNotEquals(await validate(value, isArray()), [], String(value));
   }
 });

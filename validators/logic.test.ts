@@ -11,7 +11,7 @@ Deno.test("or (match)", async () => {
     [1, [isString(), isInteger()]],
   ];
   for (const [value, validators] of values) {
-    assertEquals(await validate(value, or(...validators)), []);
+    assertEquals(await validate(value, or(...validators)), [], String(value));
   }
 });
 
@@ -22,6 +22,10 @@ Deno.test("or (no match)", async () => {
     [1, [isString()]],
   ];
   for (const [value, validators] of values) {
-    assertNotEquals(await validate(value, or(...validators)), []);
+    assertNotEquals(
+      await validate(value, or(...validators)),
+      [],
+      String(value),
+    );
   }
 });

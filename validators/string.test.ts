@@ -15,7 +15,7 @@ Deno.test("isString (match)", async () => {
     new String("bar"),
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isString()), []);
+    assertEquals(await validate(value, isString()), [], String(value));
   }
 });
 
@@ -31,7 +31,7 @@ Deno.test("isString (no match)", async () => {
     Symbol(),
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isString()), []);
+    assertNotEquals(await validate(value, isString()), [], String(value));
   }
 });
 
@@ -47,7 +47,7 @@ Deno.test("isUrl (match)", async () => {
     assertEquals(
       await validate(value, isUrl({ allowLocal: true, allowDataUrl: true })),
       [],
-      "" + value,
+      String(value),
     );
   }
 });
@@ -66,7 +66,7 @@ Deno.test("isUrl (no match)", async () => {
     assertNotEquals(
       await validate(value, isUrl({ allowLocal: true })),
       [],
-      "" + value,
+      String(value),
     );
   }
 });
@@ -88,11 +88,7 @@ Deno.test("isEmail (match)", async () => {
     "firstname-lastname@example.com",
   ];
   for (const value of values) {
-    assertEquals(
-      await validate(value, isEmail()),
-      [],
-      "" + value,
-    );
+    assertEquals(await validate(value, isEmail()), [], String(value));
   }
 });
 
@@ -117,10 +113,6 @@ Deno.test("isEmail (no match)", async () => {
     "Abc..123@example.com",
   ];
   for (const value of values) {
-    assertNotEquals(
-      await validate(value, isEmail()),
-      [],
-      "" + value,
-    );
+    assertNotEquals(await validate(value, isEmail()), [], String(value));
   }
 });

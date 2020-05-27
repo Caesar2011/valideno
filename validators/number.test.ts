@@ -49,9 +49,13 @@ Deno.test("isInteger (match)", async () => {
     -1,
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isInteger()), []);
+    assertEquals(await validate(value, isInteger()), [], String(value));
   }
-  assertEquals(await validate(NaN, isInteger({ allowNaN: true })), []);
+  assertEquals(
+    await validate(NaN, isInteger({ allowNaN: true })),
+    [],
+    String(NaN),
+  );
 });
 
 Deno.test("isInteger (no match)", async () => {
@@ -67,7 +71,11 @@ Deno.test("isInteger (no match)", async () => {
     0.1,
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isInteger()), []);
+    assertNotEquals(await validate(value, isInteger()), [], String(value));
   }
-  assertNotEquals(await validate(NaN, isInteger({ allowNaN: false })), []);
+  assertNotEquals(
+    await validate(NaN, isInteger({ allowNaN: false })),
+    [],
+    String(NaN),
+  );
 });
