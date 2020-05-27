@@ -107,11 +107,15 @@ export function hasParity(
         return { partity: "even" };
       }
       if (divisibleBy !== undefined && (value % divisibleBy !== 0)) {
-        return { divisibleBy: "divisibleBy" };
+        return { divisibleBy };
       }
     },
     message: (value: any, args?: Args) => {
-      return `This value is not in the given range.`;
+      if (args?.hasOwnProperty("divisibleBy")) {
+        return `This value is not divisible by ${divisibleBy}.`;
+      } else {
+        return `This value has a wrong partiy.`;
+      }
     },
   };
 }
