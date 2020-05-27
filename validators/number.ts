@@ -5,6 +5,13 @@ export function isNumber(
 ): Validator {
   return {
     type: "isNumber",
+    convert: (value: any) => {
+      if (typeof value === "string" || value instanceof String) {
+        const num = Number(value);
+        return Number.isNaN(num) ? value : num;
+      }
+      return value;
+    },
     check: (value: any) => {
       if (value === null || value === undefined) return;
       if (allowNaN && Number.isNaN(value)) return;

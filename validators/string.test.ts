@@ -129,10 +129,14 @@ Deno.test("fulfillsRegex (match)", async () => {
     [undefined, /[a-z]+/],
     ["123abc", /[a-z]+/],
     ["abc", /^[a-z]+$/],
-    ["^ab$", /^\^(ab)|(cd)\$$/]
+    ["^ab$", /^\^(ab)|(cd)\$$/],
   ];
   for (const [value, regex] of values) {
-    assertEquals(await validate(value, fulfillsRegex({ regex })), [], `${String(value)} - ${regex}`);
+    assertEquals(
+      await validate(value, fulfillsRegex({ regex })),
+      [],
+      `${String(value)} - ${regex}`,
+    );
   }
 });
 
@@ -141,9 +145,13 @@ Deno.test("fulfillsRegex (no match)", async () => {
     [Symbol(), /[a-z]+/],
     ["", /[a-z]+/],
     ["abc123", /^[a-z]+$/],
-    ["^abcd$", /^\^(ab|cd)\$$/]
+    ["^abcd$", /^\^(ab|cd)\$$/],
   ];
   for (const [value, regex] of values) {
-    assertNotEquals(await validate(value, fulfillsRegex({ regex })), [], `${String(value)} - ${regex}`);
+    assertNotEquals(
+      await validate(value, fulfillsRegex({ regex })),
+      [],
+      `${String(value)} - ${regex}`,
+    );
   }
 });

@@ -126,6 +126,15 @@ export function isEmail(): Validator {
   return {
     type: "isEmail",
     extends: [isString()],
+    convert: (value: any) => {
+      if (value === true) {
+        return "true";
+      } else if (value === false) {
+        return "false";
+      } else if (typeof value === "number") {
+        return value.toString();
+      }
+    },
     check: (value: any) => {
       if (value === null || value === undefined) return;
       const regex =
@@ -141,7 +150,7 @@ export function isEmail(): Validator {
   };
 }
 
-export function fulfillsRegex({regex}: {regex: RegExp}): Validator {
+export function fulfillsRegex({ regex }: { regex: RegExp }): Validator {
   return {
     type: "fulfillsRegex",
     extends: [isString()],
