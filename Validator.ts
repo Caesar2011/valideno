@@ -15,7 +15,7 @@ export interface ValidationError {
   type: string;
   param?: string[];
   message?: string | null;
-  args?: Args;
+  args: Args;
 }
 
 export type Validatable = Schema | Validator | Validator[];
