@@ -1,4 +1,4 @@
-import { isString, isUrl, isEmail } from "./string.ts";
+import { isString, isUrl, isEmail, fulfillsRegex } from "./string.ts";
 import { validate } from "../mod.ts";
 import {
   assertEquals,
@@ -37,6 +37,8 @@ Deno.test("isString (no match)", async () => {
 
 Deno.test("isUrl (match)", async () => {
   const values = [
+    undefined,
+    null,
     "http://google.com",
     "http://10.1.1.1",
     "http://10.1.1.254",
@@ -70,8 +72,11 @@ Deno.test("isUrl (no match)", async () => {
     );
   }
 });
+
 Deno.test("isEmail (match)", async () => {
   const values = [
+    undefined,
+    null,
     "email@example.com",
     "firstname.lastname@example.com",
     "email@subdomain.example.com",
@@ -114,5 +119,31 @@ Deno.test("isEmail (no match)", async () => {
   ];
   for (const value of values) {
     assertNotEquals(await validate(value, isEmail()), [], String(value));
+  }
+});
+
+Deno.test("fulfillsRegex (match)", async () => {
+  const values: [any, RegExp][] = [
+    ["abc", /[a-z]+/],
+    [null, /[a-z]+/],
+    [undefined, /[a-z]+/],
+    ["123abc", /[a-z]+/],
+    ["abc", /^[a-z]+$/],
+    ["^ab$", /^\^(ab)|(cd)\$$/]
+  ];
+  for (const [value, regex] of values) {
+    assertEquals(await validate(value, fulfillsRegex({ regex })), [], `${String(value)} - ${regex}`);
+  }
+});
+
+Deno.test("fulfillsRegex (no match)", async () => {
+  const values: [any, RegExp][] = [
+    [Symbol(), /[a-z]+/],
+    ["", /[a-z]+/],
+    ["abc123", /^[a-z]+$/],
+    ["^abcd$", /^\^(ab|cd)\$$/]
+  ];
+  for (const [value, regex] of values) {
+    assertNotEquals(await validate(value, fulfillsRegex({ regex })), [], `${String(value)} - ${regex}`);
   }
 });

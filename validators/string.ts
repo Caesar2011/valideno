@@ -140,3 +140,19 @@ export function isEmail(): Validator {
     },
   };
 }
+
+export function fulfillsRegex({regex}: {regex: RegExp}): Validator {
+  return {
+    type: "fulfillsRegex",
+    extends: [isString()],
+    check: (value: any) => {
+      if (value === null || value === undefined) return;
+      if (!value.match(regex)) {
+        return {};
+      }
+    },
+    message: (value: any, args?: Args) => {
+      return `This value has to fulfill the regex ${regex}.`;
+    },
+  };
+}
