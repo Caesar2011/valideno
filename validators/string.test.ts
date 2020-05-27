@@ -1,4 +1,4 @@
-import { isString, isURL } from "./string.ts";
+import { isString, isUrl, isEmail } from "./string.ts";
 import { validate } from "../mod.ts";
 import {
   assertEquals,
@@ -35,20 +35,24 @@ Deno.test("isString (no match)", async () => {
   }
 });
 
-Deno.test("isURL (match)", async () => {
+Deno.test("isUrl (match)", async () => {
   const values = [
     "http://google.com",
     "http://10.1.1.1",
     "http://10.1.1.254",
     "http://223.255.255.254",
-    " data:,Hello World!"
+    " data:,Hello World!",
   ];
   for (const value of values) {
-    assertEquals(await validate(value, isURL({allowLocal: true, allowDataUrl: true})), [], value);
+    assertEquals(
+      await validate(value, isUrl({ allowLocal: true, allowDataUrl: true })),
+      [],
+      "" + value,
+    );
   }
 });
 
-Deno.test("isURL (no match)", async () => {
+Deno.test("isUrl (no match)", async () => {
   const values = [
     "invalid",
     "http://0.0.0.0",
@@ -56,9 +60,67 @@ Deno.test("isURL (no match)", async () => {
     "http://10.1.1.255",
     "http://224.1.1.1",
     "http://1.1.1.1.1",
-    " data:,Hello World!"
+    " data:,Hello World!",
   ];
   for (const value of values) {
-    assertNotEquals(await validate(value, isURL({allowLocal: true})), [], value);
+    assertNotEquals(
+      await validate(value, isUrl({ allowLocal: true })),
+      [],
+      "" + value,
+    );
+  }
+});
+Deno.test("isEmail (match)", async () => {
+  const values = [
+    "email@example.com",
+    "firstname.lastname@example.com",
+    "email@subdomain.example.com",
+    "firstname+lastname@example.com",
+    "email@123.123.123.123",
+    "email@[123.123.123.123]",
+    "1234567890@example.com",
+    "234567890@example.com",
+    "email@example-one.com",
+    "_______@example.com",
+    "email@example.name",
+    "email@example.museum",
+    "email@example.co.jp",
+    "firstname-lastname@example.com",
+  ];
+  for (const value of values) {
+    assertEquals(
+      await validate(value, isEmail()),
+      [],
+      "" + value,
+    );
+  }
+});
+
+Deno.test("isEmail (no match)", async () => {
+  const values = [
+    "",
+    1,
+    "foo§@bar.baz",
+    "#@%^%#$@#$@#.com",
+    "@example.com",
+    "Joe Smith <email@example.com>",
+    "email.example.com",
+    "email@example@example.com",
+    ".email@example.com",
+    "email.@example.com",
+    "email..email@example.com",
+    "あいうえお@example.com",
+    "email@example.com (Joe Smith)",
+    "email@example",
+    "email@-example.com",
+    "email@example..com",
+    "Abc..123@example.com",
+  ];
+  for (const value of values) {
+    assertNotEquals(
+      await validate(value, isEmail()),
+      [],
+      "" + value,
+    );
   }
 });

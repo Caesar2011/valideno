@@ -6,7 +6,7 @@ export {
   Validatable,
   ArraySymbol,
 } from "./Validator.ts";
-export { isString } from "./validators/string.ts";
+export { isString, isUrl, isEmail } from "./validators/string.ts";
 export { isNumber, isInteger } from "./validators/number.ts";
 export { isArray } from "./validators/array.ts";
 export { or } from "./validators/logic.ts";
