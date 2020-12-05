@@ -31,7 +31,7 @@ export function isUrl(
     allowDomain = true,
     allowBasicAuth = false,
     allowPort = true,
-    allowRecourcePath = true,
+    allowResourcePath = true,
   }: {
     protocols?: string[] | null;
     allowDataUrl?: boolean;
@@ -41,7 +41,7 @@ export function isUrl(
     allowDomain?: boolean;
     allowBasicAuth?: boolean;
     allowPort?: boolean;
-    allowRecourcePath?: boolean;
+    allowResourcePath?: boolean;
   } = {},
 ): Validator {
   return {
@@ -95,7 +95,7 @@ export function isUrl(
           // port number (optional)
           regex += "(?::\\d{2,5})?";
         }
-        if (allowRecourcePath) {
+        if (allowResourcePath) {
           // resource path (optional)
           regex += "(?:[/?#]\\S*)?";
         }
@@ -106,7 +106,7 @@ export function isUrl(
       }
       if (allowDataUrl) {
         const regex =
-          /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
+          /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+=[a-z\-]+)?)?(;base64)?,[a-z0-9!$&',()*+;=\-._~:@\/?%\s]*\s*$/i;
         if (value.match(regex)) {
           return;
         }

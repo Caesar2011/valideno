@@ -24,11 +24,11 @@ Deno.test("isSymbol (no match)", async () => {
     false,
     "",
     "foo",
-    new String(),
-    new String("bar"),
+    String(),
+    String("bar"),
     () => {},
     function named() {},
-    new Object(),
+    {},
   ];
   for (const value of values) {
     assertNotEquals(await validate(value, isSymbol()), [], String(value));

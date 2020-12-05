@@ -11,8 +11,8 @@ Deno.test("isString (match)", async () => {
     null,
     "",
     "foo",
-    new String(),
-    new String("bar"),
+    String(),
+    String("bar"),
   ];
   for (const value of values) {
     assertEquals(await validate(value, isString()), [], String(value));
@@ -27,7 +27,7 @@ Deno.test("isString (no match)", async () => {
     false,
     () => {},
     function named() {},
-    new Object(),
+    {},
     Symbol(),
   ];
   for (const value of values) {

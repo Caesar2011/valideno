@@ -25,11 +25,11 @@ Deno.test("isArray (no match)", async () => {
     true,
     "",
     "foo",
-    new String(),
-    new String("bar"),
+    String(),
+    String("bar"),
     () => {},
     function named() {},
-    new Object(),
+    {},
     Symbol(),
   ];
   for (const value of values) {

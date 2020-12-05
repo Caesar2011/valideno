@@ -27,7 +27,7 @@ Deno.test("isRequired (match)", async () => {
 });
 
 Deno.test("isRequired (no match)", async () => {
-  const values = [
+  const values: (undefined|null)[] = [
     undefined,
     null,
   ];
@@ -59,7 +59,7 @@ Deno.test("isDefined (match)", async () => {
 });
 
 Deno.test("isDefined (no match)", async () => {
-  const values = [
+  const values: undefined[] = [
     undefined,
   ];
   for (const value of values) {

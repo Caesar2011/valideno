@@ -66,6 +66,7 @@ export function isNotEmpty(): Validator {
         }
         return {};
       }
+      // noinspection LoopStatementThatDoesntLoopJS
       for (const key in value) {
         return;
       }

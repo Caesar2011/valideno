@@ -30,7 +30,7 @@ Deno.test("isNumber (no match)", async () => {
     false,
     () => {},
     function named() {},
-    new Object(),
+    {},
     Symbol(),
   ];
   for (const value of values) {
@@ -66,7 +66,7 @@ Deno.test("isInteger (no match)", async () => {
     false,
     () => {},
     function named() {},
-    new Object(),
+    {},
     Symbol(),
     0.1,
   ];
