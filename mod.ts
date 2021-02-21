@@ -1,9 +1,12 @@
-export {
+export type {
   Args,
-  Validator,
-  ValidationError,
-  validate,
   Validatable,
+  ValidationError,
+  Validator,
+} from './Validator.ts';
+
+export {
+  validate,
   ArraySymbol,
 } from "./Validator.ts";
 export {
